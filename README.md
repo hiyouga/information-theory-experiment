@@ -4,7 +4,7 @@ BUAA CST Spring 2019 Information Theory Experiment
 
 懒得用英文了，反正就是三个很水的小程序，但是还蛮好玩的。
 
-## aep.py
+## [aep.py](src/aep.py)
 
 ### Requirement
 
@@ -41,7 +41,7 @@ python aep.py
 | 500      | 0.99         | 8.2*10^149   | 0.25             |
 | 1000     | 0.99         | 1.9*10^300   | 0.18             |
 
-## huffman.py
+## [huffman.py](src/huffman.py)
 
 ### Requirement
 
@@ -90,7 +90,7 @@ python huffman.py -h
 
 译码速度：**300KB/s±50KB/s**
 
-## lz78.py
+## [lz78.py](src/lz78.py)
 
 ### Requirement
 
@@ -149,3 +149,7 @@ python lz78.py -h
 ### 评估
 
 ![eval](assets/eval.gif)
+
+## License
+
+This project is licensed under the terms of the [MIT license](LICENSE).
