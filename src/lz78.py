@@ -11,9 +11,6 @@ class LZ78:
         self._bar = bar
     
     def info(self, path:str):
-        if not os.path.exists(path):
-            print('Error: No such file')
-            return None
         with open(path, 'rb') as fin:
             file_data = fin.read()
         file_size = len(file_data)
@@ -38,9 +35,6 @@ class LZ78:
         print('Efficiency: {:.2f}%'.format(hu / avg_n * 100))
     
     def encode(self, path:str):
-        if not os.path.exists(path):
-            print('Error: No such file')
-            return None
         with open(path, 'rb') as fin:
             file_data = fin.read()
         file_dir, file_name = os.path.split(path)
@@ -58,9 +52,6 @@ class LZ78:
             print('Encoding finished')
     
     def decode(self, path:str):
-        if not os.path.exists(path):
-            print('Error: No such file')
-            return None
         if os.path.splitext(path)[-1] != '.lzp':
             print('Error: Unknown File Type')
             return None
@@ -174,25 +165,30 @@ if __name__ == '__main__':
     parser.add_argument('-b', '--bar', type=bool, default=True, help='show process bar')
     parser.add_argument('-i', '--info', type=bool, default=False, help='display file info (only eval mode)')
     opt = parser.parse_args()
-    lz78 = LZ78(bar=opt.bar)
-    if opt.job == 'encode':
-        lz78.encode(opt.path)
-    elif opt.job == 'decode':
-        lz78.decode(opt.path)
-    elif opt.job == 'eval':
-        t0 = time.time()
-        lz78.encode(opt.path)
-        t1 = time.time()
-        lz78.decode(opt.path+'.lzp')
-        t2 = time.time()
-        raw_size = os.path.getsize(opt.path)
-        new_size = os.path.getsize(opt.path+'.lzp')
-        if opt.info:
-            lz78.info(opt.path)
-        print('Encode Time: {:.5f}s'.format(t1-t0))
-        print('Decode Time: {:.5f}s'.format(t2-t1))
-        print('Raw Size: {:d}B'.format(raw_size))
-        print('New Size: {:d}B'.format(new_size))
-        print('Compress Rate: {:.2f}%'.format(new_size/raw_size*100))
-        print('Encode Speed: {:.2f}KB/s'.format(raw_size/1024/(t1-t0)))
-        print('Decode Speed: {:.2f}KB/s'.format(new_size/1024/(t2-t1)))
+    if not os.path.exists(opt.path):
+        print('Error: No such file')
+    else:
+        lz78 = LZ78(bar=opt.bar)
+        if opt.job == 'encode':
+            lz78.encode(opt.path)
+        elif opt.job == 'decode':
+            lz78.decode(opt.path)
+        elif opt.job == 'eval':
+            t0 = time.time()
+            lz78.encode(opt.path)
+            t1 = time.time()
+            lz78.decode(opt.path+'.lzp')
+            t2 = time.time()
+            raw_size = os.path.getsize(opt.path)
+            new_size = os.path.getsize(opt.path+'.lzp')
+            if opt.info:
+                lz78.info(opt.path)
+            print('Encode Time: {:.5f}s'.format(t1-t0))
+            print('Decode Time: {:.5f}s'.format(t2-t1))
+            print('Raw Size: {:d}B'.format(raw_size))
+            print('New Size: {:d}B'.format(new_size))
+            print('Compress Rate: {:.2f}%'.format(new_size/raw_size*100))
+            print('Encode Speed: {:.2f}KB/s'.format(raw_size/1024/(t1-t0)))
+            print('Decode Speed: {:.2f}KB/s'.format(new_size/1024/(t2-t1)))
+        else:
+            print('Error: Unknown operation type')
