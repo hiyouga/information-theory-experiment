@@ -144,8 +144,8 @@ python lz78.py -h
 
 ### 编码
 
-![encode](assets\encode.gif)
+![encode](assets/encode.gif)
 
 ### 评估
 
-![eval](assets\eval.gif)
+![eval](assets/eval.gif)
